@@ -3,6 +3,5 @@
   "name": "FUDGE Dice Roller",
   "description": "Rolls 4 FUDGE dice and displays result.",
   "version": "1.0.0",
-  "type": "module",
   "entry": "index.html"
 }
