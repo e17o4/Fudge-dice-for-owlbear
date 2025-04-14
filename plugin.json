@@ -1,0 +1,7 @@
+{
+  "id": "fudge-dice-roller",
+  "name": "FUDGE Dice Roller",
+  "description": "Adds a button to roll 4 FUDGE dice",
+  "entry": "index.html",
+  "version": "1.0.0"
+}
