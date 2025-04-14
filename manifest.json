@@ -3,5 +3,11 @@
   "name": "FUDGE Dice Roller",
   "description": "Rolls 4 FUDGE dice and displays result.",
   "version": "1.0.0",
-  "entry": "index.html"
+  "action": {
+    "title": "FUDGE Dice",
+    "icon": "/icon.svg",
+    "popover": "/index.html",
+    "width": 400,
+    "height": 300
+  }
 }
