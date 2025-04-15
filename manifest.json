@@ -5,8 +5,8 @@
   "version": "1.0.0",
   "action": {
     "title": "FUDGE Dice",
-    "icon": "icon.svg",
-    "popover": "index.html",
+    "icon": "https://e17o4.github.io/Fudge-dice-for-owlbear/icon.svg",
+    "popover": "https://e17o4.github.io/Fudge-dice-for-owlbear/index.html",
     "width": 400,
     "height": 300
   }
