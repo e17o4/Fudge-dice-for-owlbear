@@ -5,8 +5,8 @@
   "version": "1.0.0",
   "action": {
     "title": "FUDGE Dice",
-    "icon": "icon.svg",
-    "popover": "index.html",
+    "icon": "/icon.svg",
+    "popover": "/index.html",
     "width": 400,
     "height": 300
   }
