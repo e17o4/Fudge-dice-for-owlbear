@@ -1,15 +1,10 @@
 {
-  "manifest_version": 1,
+  "id": "fudge-dice",
   "name": "FUDGE Dice Roller",
-  "description": "Rolls 4 FUDGE dice and displays result.",
   "version": "1.0.1",
-  "action": {
-    "title": "FUDGE Dice",
-    "icon": "https://e17o4.github.io/Fudge-dice-for-owlbear/icon.svg",
-    "popover": "https://e17o4.github.io/Fudge-dice-for-owlbear/index.html",
-    "width": 400,
-    "height": 300,
-    "permissions": {
+  "entry": "https://e17o4.github.io/Fudge-dice-for-owlbear/index.html",
+  "icon": "https://e17o4.github.io/Fudge-dice-for-owlbear/icon.svg",
+  "permissions": {
     "storage": {
       "shared": true
     },
