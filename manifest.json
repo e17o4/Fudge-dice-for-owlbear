@@ -1,14 +1,19 @@
 {
-    "manifest_version": 1,
-    "id": "fudge-dice",
-    "name": "FUDGE Dice Roller",
-    "version": "1.0.1",
-    "entry": "https://e17o4.github.io/Fudge-dice-for-owlbear/index.html",
-    "icon": "https://e17o4.github.io/Fudge-dice-for-owlbear/icon.svg",
-    "permissions": {
-        "storage": {
-            "shared": true
-        },
-        "user": true
+  "manifest_version": 1,
+  "id": "fudge-dice",
+  "name": "FUDGE Dice Roller",
+  "version": "1.0.1",
+  "entry": "https://e17o4.github.io/Fudge-dice-for-owlbear/index.html",
+  "icon": "https://e17o4.github.io/Fudge-dice-for-owlbear/icon.svg",
+  "permissions": [
+    {
+      "name": "storage",
+      "config": {
+        "shared": true
+      }
+    },
+    {
+      "name": "user"
     }
+  ]
 }
