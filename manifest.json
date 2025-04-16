@@ -1,4 +1,5 @@
 {
+    "manifest_version": 1,
     "id": "fudge-dice",
     "name": "FUDGE Dice Roller",
     "version": "1.0.1",
