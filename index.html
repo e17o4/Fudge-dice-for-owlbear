@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FUDGE Dice Roller</title>
+  <meta charset="UTF-8" />
+  <title>FUDGE Dice</title>
+  <style>
+    body { font-family: sans-serif; padding: 10px; }
+    #result { font-size: 2em; margin: 10px 0; }
+    ul { list-style: none; padding: 0; max-height: 200px; overflow-y: auto; }
+    li { margin-bottom: 5px; }
+  </style>
 </head>
 <body>
-  <h1>FUDGE Dice Roller</h1>
-  <button onclick="rollDice()">Roll 4dF</button>
-  <p id="result"></p>
+  <button id="roll-btn">Roll FUDGE Dice</button>
+  <div id="result"></div>
+  <ul id="log"></ul>
+
   <script src="script.js"></script>
 </body>
 </html>
