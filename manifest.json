@@ -2,6 +2,11 @@
   "manifest_version": 1,
   "name": "FUDGE Dice Roller",
   "version": "1.0.1",
-  "entry": "https://e17o4.github.io/Fudge-dice-for-owlbear/index.html",
-  "icon": "https://e17o4.github.io/Fudge-dice-for-owlbear/icon.svg"
+  "action": {
+    "title": "FUDGE Dice",
+    "icon": "https://e17o4.github.io/Fudge-dice-for-owlbear/icon.svg",
+    "popover": "https://e17o4.github.io/Fudge-dice-for-owlbear/index.html",
+    "width": 400,
+    "height": 300
   }
+}
