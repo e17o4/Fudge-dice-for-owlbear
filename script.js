@@ -15,7 +15,7 @@ function calculateTotal(rolls) {
   }, 0);
 }
 
-// DOM
+// DOM references
 const rollBtn = document.getElementById("roll-btn");
 const resultSpan = document.getElementById("result");
 const logList = document.getElementById("log");
@@ -29,7 +29,7 @@ function renderLog(log) {
   });
 }
 
-// Rolling and Sending
+// Rolling and syncing
 async function rollAndShare() {
   const rolls = rollFudge();
   const total = calculateTotal(rolls);
@@ -43,21 +43,19 @@ async function rollAndShare() {
     timestamp: Date.now()
   };
 
-  // Update shared log
   const current = (await app.storage.read("sharedRolls")) || [];
   const updated = [...current, newEntry].slice(-20); // Keep last 20 rolls
   await app.storage.write("sharedRolls", updated);
 }
 
-// Listen for roll updates
+// Listen for shared roll updates
 app.storage.onChange("sharedRolls", (newLog) => {
   renderLog(newLog || []);
 });
 
-// Button
+// Setup
 rollBtn.addEventListener("click", rollAndShare);
 
-// On load, get current log
 (async () => {
   const currentLog = (await app.storage.read("sharedRolls")) || [];
   renderLog(currentLog);
