@@ -1,4 +1,5 @@
 // FUDGE Dice Roller with Log + Shared View
+console.log("Is app defined?", typeof app !== "undefined");
 
 // Utilities
 function rollFudge() {
