@@ -3,6 +3,7 @@
   "name": "FUDGE Dice Roller",
   "description": "Rolls 4 FUDGE dice and displays result.",
   "version": "1.0.0",
+  "permissions": ["storage", "user"]
   "action": {
     "title": "FUDGE Dice",
     "icon": "https://e17o4.github.io/Fudge-dice-for-owlbear/icon.svg",
