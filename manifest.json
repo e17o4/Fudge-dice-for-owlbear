@@ -8,6 +8,11 @@
     "icon": "https://e17o4.github.io/Fudge-dice-for-owlbear/icon.svg",
     "popover": "https://e17o4.github.io/Fudge-dice-for-owlbear/index.html",
     "width": 400,
-    "height": 300
+    "height": 300,
+    "permissions": {
+    "storage": {
+      "shared": true
+    },
+    "user": true
   }
 }
