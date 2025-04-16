@@ -1,6 +1,5 @@
 {
   "manifest_version": 1,
-  "id": "fudge-dice",
   "name": "FUDGE Dice Roller",
   "version": "1.0.1",
   "entry": "https://e17o4.github.io/Fudge-dice-for-owlbear/index.html",
