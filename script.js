@@ -34,8 +34,16 @@ function renderLog(log) {
 async function rollAndShare() {
   const rolls = rollFudge();
   const total = calculateTotal(rolls);
-  const user = await app.user.getUserInfo();
-  const name = user?.displayName || "Unknown Player";
+  let name = "Unknown Player";
+
+  if (typeof app !== "undefined" && app.user?.getUserInfo) {
+    try {
+      const user = await app.user.getUserInfo();
+      name = user?.displayName || name;
+    } catch (e) {
+      console.warn("Failed to get user info:", e);
+    }
+  }
 
   const newEntry = {
     name,
@@ -44,20 +52,39 @@ async function rollAndShare() {
     timestamp: Date.now()
   };
 
-  const current = (await app.storage.read("sharedRolls")) || [];
-  const updated = [...current, newEntry].slice(-20); // Keep last 20 rolls
-  await app.storage.write("sharedRolls", updated);
+  if (typeof app !== "undefined" && app.storage?.write) {
+    try {
+      const current = (await app.storage.read("sharedRolls")) || [];
+      const updated = [...current, newEntry].slice(-20); // Keep last 20 rolls
+      await app.storage.write("sharedRolls", updated);
+    } catch (e) {
+      console.warn("Storage write failed:", e);
+    }
+  }
+
+  renderLog([newEntry]);
 }
 
-// Listen for shared roll updates
-app.storage.onChange("sharedRolls", (newLog) => {
-  renderLog(newLog || []);
-});
+// Listen for shared roll updates if app is available
+if (typeof app !== "undefined" && app.storage?.onChange) {
+  app.storage.onChange("sharedRolls", (newLog) => {
+    renderLog(newLog || []);
+  });
+}
 
 // Setup
-rollBtn.addEventListener("click", rollAndShare);
+if (rollBtn) {
+  rollBtn.addEventListener("click", rollAndShare);
+}
 
+// Initial render
 (async () => {
-  const currentLog = (await app.storage.read("sharedRolls")) || [];
-  renderLog(currentLog);
+  if (typeof app !== "undefined" && app.storage?.read) {
+    try {
+      const currentLog = (await app.storage.read("sharedRolls")) || [];
+      renderLog(currentLog);
+    } catch (e) {
+      console.warn("Storage read failed:", e);
+    }
+  }
 })();
