@@ -16,16 +16,33 @@ function calculateTotal(rolls) {
   }, 0);
 }
 
+function formatTimestamp(ts) {
+  const date = new Date(ts);
+  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
 // DOM references
 const rollBtn = document.getElementById("roll-btn");
-const resultSpan = document.getElementById("result");
 const logList = document.getElementById("log");
 
+// Log rendering
 function renderLog(log) {
   logList.innerHTML = "";
   log.slice().reverse().forEach(entry => {
     const li = document.createElement("li");
-    li.textContent = `${entry.name}: ${entry.result} (${entry.rolls.join(" ")})`;
+
+    const link = document.createElement("a");
+    link.href = `https://app.owlbear.rodeo/profile/${entry.id || ""}`;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = entry.name;
+
+    const time = document.createElement("span");
+    time.textContent = ` at ${formatTimestamp(entry.timestamp)}:`;
+
+    li.appendChild(link);
+    li.appendChild(time);
+    li.appendChild(document.createTextNode(` ${entry.result} (${entry.rolls.join(" ")})`));
     logList.appendChild(li);
   });
 }
@@ -34,57 +51,32 @@ function renderLog(log) {
 async function rollAndShare() {
   const rolls = rollFudge();
   const total = calculateTotal(rolls);
-  let name = "Unknown Player";
-
-  if (typeof app !== "undefined" && app.user?.getUserInfo) {
-    try {
-      const user = await app.user.getUserInfo();
-      name = user?.displayName || name;
-    } catch (e) {
-      console.warn("Failed to get user info:", e);
-    }
-  }
+  const user = await app.user.getUserInfo();
+  const name = user?.displayName || "Unknown Player";
+  const id = user?.id || null;
 
   const newEntry = {
     name,
+    id,
     rolls,
     result: total,
     timestamp: Date.now()
   };
 
-  if (typeof app !== "undefined" && app.storage?.write) {
-    try {
-      const current = (await app.storage.read("sharedRolls")) || [];
-      const updated = [...current, newEntry].slice(-20); // Keep last 20 rolls
-      await app.storage.write("sharedRolls", updated);
-    } catch (e) {
-      console.warn("Storage write failed:", e);
-    }
-  }
-
-  renderLog([newEntry]);
+  const current = (await app.storage.read("sharedRolls")) || [];
+  const updated = [...current, newEntry].slice(-20);
+  await app.storage.write("sharedRolls", updated);
 }
 
-// Listen for shared roll updates if app is available
-if (typeof app !== "undefined" && app.storage?.onChange) {
-  app.storage.onChange("sharedRolls", (newLog) => {
-    renderLog(newLog || []);
-  });
-}
+// Listen for shared roll updates
+app.storage.onChange("sharedRolls", (newLog) => {
+  renderLog(newLog || []);
+});
 
 // Setup
-if (rollBtn) {
-  rollBtn.addEventListener("click", rollAndShare);
-}
+rollBtn.addEventListener("click", rollAndShare);
 
-// Initial render
 (async () => {
-  if (typeof app !== "undefined" && app.storage?.read) {
-    try {
-      const currentLog = (await app.storage.read("sharedRolls")) || [];
-      renderLog(currentLog);
-    } catch (e) {
-      console.warn("Storage read failed:", e);
-    }
-  }
+  const currentLog = (await app.storage.read("sharedRolls")) || [];
+  renderLog(currentLog);
 })();
